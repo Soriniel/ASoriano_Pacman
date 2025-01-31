@@ -8,6 +8,8 @@ TagManager:
   - MazeGeo
   - Esfera
   - Puntos
+  - spawn
+  - Cherry
   layers:
   - Default
   - TransparentFX

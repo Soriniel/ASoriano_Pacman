@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     GameObject gameOver;
     int puntos = 0;
-    int faltantes = 57;
+    int faltantes = 72;
     public TextMeshProUGUI puntosT;
     public TextMeshProUGUI faltantesT;
     // Start is called before the first frame update
@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     {        
         gameOver = GameObject.Find("GameOver");
         gameOver.SetActive(false);
-        faltantesT.text = "Restantes 57";
+        faltantesT.text = "Restantes 72";
 
     }
 
