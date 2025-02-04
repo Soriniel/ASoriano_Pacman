@@ -7,10 +7,11 @@ public class Spawn : MonoBehaviour
 {
     public GameObject fantasma;
     public Transform[] spawnPoints;
+    GameManager gamemanager;
 
     void Start()
     {
-        spawnPoints = GameObject.FindGameObjectsWithTag("spawn").Select(go => go.transform).ToArray();
+       
         StartCoroutine(SpawnFantasma());
     }
 
@@ -22,6 +23,7 @@ public class Spawn : MonoBehaviour
             {
                 int randomIndex = Random.Range(0, spawnPoints.Length);
                 Instantiate(fantasma, spawnPoints[randomIndex].position, Quaternion.identity);
+                gamemanager.EnemigosSpawn();
             }
             yield return new WaitForSeconds(10f);
         }
