@@ -9,11 +9,14 @@ public class NavJugador : MonoBehaviour
     GameObject GameobjectwithCharacterController;
     CharacterController controller ;
     public GameManager gameManager;
+    List<Enemigo> enemigos = new List<Enemigo>();
+    int comecocos = 0;
 
     void Start()
     {
         controller = this.GetComponent<CharacterController>();
-         velocidad = 3.0f;
+        enemigos.AddRange(FindObjectsOfType<Enemigo>());
+        velocidad = 3.0f;
     }
     void Update()
     {
@@ -55,10 +58,23 @@ public class NavJugador : MonoBehaviour
             Destroy(other.gameObject);
         }
 
+        if (other.CompareTag("Cerezas"))
+        {
+            StartCoroutine(ComecocosModoOn());
+            other.gameObject.SetActive(false);
+        }
+
         if (other.CompareTag("Enemy"))
         {
-            this.gameObject.SetActive(false);
-            gameManager.Derrota();
+            if (comecocos == 0)
+            {
+                this.gameObject.SetActive(false);
+                gameManager.Derrota();
+            }
+            else
+            {
+                other.gameObject.SetActive(false);
+            }
         }
 
         if (other.CompareTag("Puntos"))
@@ -66,6 +82,25 @@ public class NavJugador : MonoBehaviour
             gameManager.Puntos();
             Destroy(other.gameObject);
         }
+    }
+
+    IEnumerator ComecocosModoOn()
+    {
+        enemigos.AddRange(FindObjectsOfType<Enemigo>());
+        comecocos = 1;
+        foreach (Enemigo enemigo in enemigos)
+        {
+            enemigo.Comecocos();
+        }
+
+        yield return new WaitForSeconds(10f);
+        comecocos = 0;
+        foreach (Enemigo enemigo in enemigos)
+        {
+            enemigo.Comecocosoff();
+        }
+
+
     }
 
 }

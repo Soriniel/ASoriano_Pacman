@@ -10,6 +10,7 @@ TagManager:
   - Puntos
   - spawn
   - Cherry
+  - Cerezas
   layers:
   - Default
   - TransparentFX

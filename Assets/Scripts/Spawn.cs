@@ -6,13 +6,16 @@ using UnityEngine;
 public class Spawn : MonoBehaviour
 {
     public GameObject fantasma;
+    public GameObject cherryPrefab;
     public Transform[] spawnPoints;
-    GameManager gamemanager;
+    public Transform[] spawnCherry;
+    public GameManager gamemanager;
 
     void Start()
     {
        
         StartCoroutine(SpawnFantasma());
+        StartCoroutine(SpawnCherry());
     }
 
     IEnumerator SpawnFantasma()
@@ -21,11 +24,24 @@ public class Spawn : MonoBehaviour
         {
             for (int i = 0; i < 2; i++)
             {
-                int randomIndex = Random.Range(0, spawnPoints.Length);
-                Instantiate(fantasma, spawnPoints[randomIndex].position, Quaternion.identity);
                 gamemanager.EnemigosSpawn();
+                int randomIndex = Random.Range(0, spawnPoints.Length);
+                Instantiate(fantasma, spawnPoints[randomIndex].position, Quaternion.identity);               
             }
             yield return new WaitForSeconds(10f);
+        }
+    }
+
+    IEnumerator SpawnCherry()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(10f);
+            int randomIndex = Random.Range(0, spawnCherry.Length);
+            Vector3 spawnPosition = spawnCherry[randomIndex].position;
+            GameObject cherry = Instantiate(cherryPrefab, spawnPosition, Quaternion.identity);
+            Destroy(cherry, 10f);
+
         }
     }
 }
